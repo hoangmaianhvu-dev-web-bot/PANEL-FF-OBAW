@@ -1,5 +1,11 @@
 export const androidFiles = [
   {
+    name: 'gradle.properties',
+    language: 'properties',
+    content: `android.useAndroidX=true
+android.enableJetifier=true`
+  },
+  {
     name: 'settings.gradle',
     language: 'groovy',
     content: `pluginManagement {
