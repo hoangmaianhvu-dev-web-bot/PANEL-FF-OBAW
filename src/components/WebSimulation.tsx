@@ -85,6 +85,7 @@ export default function WebSimulation() {
     if (hasPermission) {
       setIsMenuVisible(true);
       setIsOpen(true);
+      setToastMessage("Đang hiển thị đè lên ứng dụng khác...");
     } else {
       setShowPermissionDialog(true);
     }
@@ -97,42 +98,51 @@ export default function WebSimulation() {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-80px)] bg-[url('https://picsum.photos/seed/cyberpunk/1920/1080?blur=2')] bg-cover bg-center rounded-xl overflow-hidden border border-white/10 shadow-2xl" ref={constraintsRef}>
-      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="mb-6"
-        >
-          <Ghost size={80} className="text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.8)]" />
-        </motion.div>
-        <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-yellow-400 animate-gradient-x mb-2 drop-shadow-lg uppercase tracking-widest">
-          AVU DEV - PREMIUM
-        </h1>
-        <p className="text-yellow-500/80 font-mono text-sm mb-8 tracking-widest border border-yellow-500/30 px-4 py-1 rounded-full bg-yellow-500/10">
-          Panel FF Obaw OB52
-        </p>
-        <p className="text-gray-300 mb-8 max-w-md drop-shadow-md text-sm leading-relaxed">
-           AVU DEV - PREMIUM MOD MENU . Chào mừng bạn đến với PANEL OBAW FF OB52.                          
-        </p>
-        
-        <div className="flex flex-col gap-4">
-          {!hasPermission && (
-            <button
-              onClick={() => setShowPermissionDialog(true)}
-              className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/20 uppercase tracking-wider text-sm"
-            >
-              Yêu cầu quyền Overlay
-            </button>
-          )}
-          <button
-            onClick={handleOpenMenu}
-            className="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-black rounded-full transition-all shadow-[0_0_20px_rgba(234,179,8,0.4)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 uppercase tracking-wider"
+    <div 
+      className={`relative w-full h-[calc(100vh-140px)] bg-cover bg-center rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-all duration-1000 ${
+        isMenuVisible 
+          ? "bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')]" 
+          : "bg-[url('https://picsum.photos/seed/cyberpunk/1920/1080?blur=2')]"
+      }`} 
+      ref={constraintsRef}
+    >
+      {!isMenuVisible && (
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="mb-6"
           >
-            OPEN MENU PANEL FF OBAW
-          </button>
+            <Ghost size={80} className="text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.8)]" />
+          </motion.div>
+          <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-yellow-400 animate-gradient-x mb-2 drop-shadow-lg uppercase tracking-widest">
+            AVU DEV - PREMIUM
+          </h1>
+          <p className="text-yellow-500/80 font-mono text-sm mb-8 tracking-widest border border-yellow-500/30 px-4 py-1 rounded-full bg-yellow-500/10">
+            Panel FF Obaw OB52
+          </p>
+          <p className="text-gray-300 mb-8 max-w-md drop-shadow-md text-sm leading-relaxed">
+             AVU DEV - PREMIUM MOD MENU . Chào mừng bạn đến với PANEL OBAW FF OB52.                          
+          </p>
+          
+          <div className="flex flex-col gap-4">
+            {!hasPermission && (
+              <button
+                onClick={() => setShowPermissionDialog(true)}
+                className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/20 uppercase tracking-wider text-sm"
+              >
+                Yêu cầu quyền Overlay
+              </button>
+            )}
+            <button
+              onClick={handleOpenMenu}
+              className="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-black rounded-full transition-all shadow-[0_0_20px_rgba(234,179,8,0.4)] hover:shadow-[0_0_30px_rgba(234,179,8,0.6)] hover:scale-105 uppercase tracking-wider"
+            >
+              OPEN MENU PANEL FF OBAW
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Permission Dialog Simulation */}
       <AnimatePresence>
