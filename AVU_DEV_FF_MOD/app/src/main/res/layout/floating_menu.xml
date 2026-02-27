@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Icon để mở/đóng menu -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/icon_close_open"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="#CC000000"
+        app:cardElevation="8dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:padding="10dp"
+            app:tint="#FFD700"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Menu chính -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/menu_container"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#E60A0A0A"
+        app:cardElevation="10dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <LinearLayout
+                android:id="@+id/menu_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#80000000"
+                android:padding="15dp"
+                android:gravity="center">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AVU DEV - FREE"
+                    android:textColor="#FFD700"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80FFD700"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Panel FF Obaw OB52"
+                    android:textColor="#FFD700"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/badge_bg"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:padding="10dp">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Nhóm 1: HỆ THỐNG AIMBOT -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🎯 HỆ THỐNG AIMBOT" android:textColor="#FF3333" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_regedit2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 2.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_regedit4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 4.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_nhetam" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nhẹ tâm 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_aimdrag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AimDrag 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_fakeaim" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fake Aim Data 2.1" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+
+                    <!-- Nhóm 2: TỐI ƯU HIỆU NĂNG -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⚡ TỐI ƯU HIỆU NĂNG" android:textColor="#FFD700" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_fixrung" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix rung 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_fixlag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix lag 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_buffman" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Buff màn 1.1" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+
+                    <!-- Nhóm 3: BẢO MẬT & ANTIBAN -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛡️ BẢO MẬT &amp; ANTIBAN" android:textColor="#00FF00" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_antiban" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Antiban 2.0 VIP" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_dns" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DNS (Có thể gây lag)" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Footer Buttons -->
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal" 
+                android:background="#99000000"
+                android:padding="10dp" 
+                android:gravity="center">
+                
+                <Button android:id="@+id/btn_yt" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="YouTube" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#FF3333"/>
+                <Button android:id="@+id/btn_tele" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Telegram" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#3399FF" android:layout_marginStart="5dp"/>
+                <Button android:id="@+id/btn_sp" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Hỗ trợ" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#33FF33" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
