@@ -23,6 +23,7 @@ export default function WebSimulation() {
   const [showSettings, setShowSettings] = useState(false);
   const [menuBgColor, setMenuBgColor] = useState('rgba(10, 10, 10, 0.9)');
   const [menuTextColor, setMenuTextColor] = useState('#FFD700');
+  const [clickCount, setClickCount] = useState(0);
 
   const dragControls = useDragControls();
   const constraintsRef = useRef(null);
@@ -41,6 +42,26 @@ export default function WebSimulation() {
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
+
+  useEffect(() => {
+    if (clickCount > 0) {
+      const timer = setTimeout(() => setClickCount(0), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [clickCount]);
+
+  const handleMenuHeaderClick = () => {
+    setClickCount((prev) => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        setIsMenuVisible(false);
+        setIsOpen(false);
+        setToastMessage("Đã tắt Menu hoàn toàn!");
+        return 0;
+      }
+      return newCount;
+    });
+  };
 
   const SwitchItem = ({ id, label }: { id: string; label: string }) => (
     <div className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
@@ -231,7 +252,11 @@ export default function WebSimulation() {
               )}
             </AnimatePresence>
 
-            <div className="p-4 border-b border-white/10 bg-gradient-to-r from-black/50 to-transparent cursor-grab active:cursor-grabbing relative overflow-hidden" onPointerDown={(e) => dragControls.start(e)}>
+            <div 
+              className="p-4 border-b border-white/10 bg-gradient-to-r from-black/50 to-transparent cursor-grab active:cursor-grabbing relative overflow-hidden" 
+              onPointerDown={(e) => dragControls.start(e)}
+              onClick={handleMenuHeaderClick}
+            >
               {/* Animated Mascot in Header */}
               <motion.div
                 animate={{ y: [0, -5, 0], rotate: [0, 5, -5, 0] }}

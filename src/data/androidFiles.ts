@@ -1,5 +1,33 @@
 export const androidFiles = [
   {
+    name: 'settings.gradle',
+    language: 'groovy',
+    content: `pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "AVU DEV FF"
+include ':app'`
+  },
+  {
+    name: 'build.gradle',
+    language: 'groovy',
+    content: `// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '8.1.1' apply false
+}`
+  },
+  {
     name: 'app/build.gradle',
     language: 'groovy',
     content: `plugins {
@@ -34,10 +62,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }`
   },
   {
-    name: 'AndroidManifest.xml',
+    name: 'app/src/main/AndroidManifest.xml',
     language: 'xml',
     content: `<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -73,89 +102,141 @@ dependencies {
 </manifest>`
   },
   {
-    name: 'res/layout/floating_menu.xml',
+    name: 'app/src/main/res/layout/floating_menu.xml',
     language: 'xml',
     content: `<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <!-- Icon để mở/đóng menu -->
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:id="@+id/icon_close_open"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@android:drawable/ic_menu_preferences"
-        android:background="@drawable/circle_bg"
-        android:padding="10dp"
-        android:elevation="5dp"/>
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="#CC000000"
+        app:cardElevation="8dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:padding="10dp"
+            app:tint="#FFD700"/>
+    </androidx.cardview.widget.CardView>
 
     <!-- Menu chính -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/menu_container"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#DD000000"
-        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#E60A0A0A"
+        app:cardElevation="10dp"
         android:visibility="gone">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AVU DEV - FREE"
-            android:textColor="#FFD700"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingBottom="10dp"/>
+            android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
-            
+            <!-- Header -->
             <LinearLayout
+                android:id="@+id/menu_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="#80000000"
+                android:padding="15dp"
+                android:gravity="center">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AVU DEV - FREE"
+                    android:textColor="#FFD700"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80FFD700"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="10"/>
 
-                <!-- Nhóm 1 -->
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nhóm 1" android:textColor="#00FF00" android:textStyle="bold"/>
-                <Switch android:id="@+id/sw_regedit2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 2.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_regedit4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 4.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_nhetam" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nhẹ tâm 1.0" android:textColor="#FFFFFF"/>
-
-                <!-- Nhóm 2 -->
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nhóm 2" android:textColor="#00FF00" android:textStyle="bold" android:layout_marginTop="10dp"/>
-                <Switch android:id="@+id/sw_fixrung" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix rung 1.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_fixlag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix lag 1.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_buffman" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Buff màn 1.1" android:textColor="#FFFFFF"/>
-
-                <!-- Nhóm 3 -->
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nhóm 3" android:textColor="#00FF00" android:textStyle="bold" android:layout_marginTop="10dp"/>
-                <Switch android:id="@+id/sw_antiban" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Antiban 2.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_aimdrag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AimDrag 1.0" android:textColor="#FFFFFF"/>
-                <Switch android:id="@+id/sw_fakeaim" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fake Aim Data Headshot 2.1" android:textColor="#FFFFFF"/>
-
-                <!-- Nhóm 4 -->
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nhóm 4" android:textColor="#00FF00" android:textStyle="bold" android:layout_marginTop="10dp"/>
-                <Switch android:id="@+id/sw_dns" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DNS (Có thể gây lag)" android:textColor="#FFFFFF"/>
-
-                <!-- Buttons -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="15dp" android:gravity="center">
-                    <Button android:id="@+id/btn_yt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="YouTube" android:textSize="10sp"/>
-                    <Button android:id="@+id/btn_tele" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telegram" android:textSize="10sp"/>
-                    <Button android:id="@+id/btn_sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hỗ trợ" android:textSize="10sp"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Panel FF Obaw OB52"
+                    android:textColor="#FFD700"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/badge_bg"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:padding="10dp">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Nhóm 1: HỆ THỐNG AIMBOT -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🎯 HỆ THỐNG AIMBOT" android:textColor="#FF3333" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_regedit2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 2.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_regedit4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Regedit 4.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_nhetam" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nhẹ tâm 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_aimdrag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AimDrag 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_fakeaim" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fake Aim Data 2.1" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+
+                    <!-- Nhóm 2: TỐI ƯU HIỆU NĂNG -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⚡ TỐI ƯU HIỆU NĂNG" android:textColor="#FFD700" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_fixrung" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix rung 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_fixlag" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fix lag 1.0" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_buffman" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Buff màn 1.1" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+
+                    <!-- Nhóm 3: BẢO MẬT & ANTIBAN -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛡️ BẢO MẬT &amp; ANTIBAN" android:textColor="#00FF00" android:textStyle="bold" android:textSize="12sp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="#1AFFFFFF" android:padding="8dp" android:layout_marginTop="5dp" android:layout_marginBottom="10dp">
+                        <Switch android:id="@+id/sw_antiban" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Antiban 2.0 VIP" android:textColor="#E0E0E0"/>
+                        <Switch android:id="@+id/sw_dns" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DNS (Có thể gây lag)" android:textColor="#E0E0E0"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Footer Buttons -->
+            <LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal" 
+                android:background="#99000000"
+                android:padding="10dp" 
+                android:gravity="center">
+                
+                <Button android:id="@+id/btn_yt" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="YouTube" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#FF3333"/>
+                <Button android:id="@+id/btn_tele" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Telegram" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#3399FF" android:layout_marginStart="5dp"/>
+                <Button android:id="@+id/btn_sp" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Hỗ trợ" android:textSize="10sp" android:backgroundTint="#333333" android:textColor="#33FF33" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>`
   },
   {
-    name: 'MainActivity.java',
+    name: 'app/src/main/java/com/avudev/ffmod/MainActivity.java',
     language: 'java',
     content: `package com.avudev.ffmod;
 
@@ -181,11 +262,14 @@ public class MainActivity extends AppCompatActivity {
         android.widget.LinearLayout layout = new android.widget.LinearLayout(this);
         layout.setOrientation(android.widget.LinearLayout.VERTICAL);
         layout.setGravity(android.view.Gravity.CENTER);
+        layout.setBackgroundColor(android.graphics.Color.parseColor("#0A0A0A"));
         
         android.widget.TextView title = new android.widget.TextView(this);
-        title.setText("AVU DEV - FREE MOD");
-        title.setTextSize(24);
+        title.setText("AVU DEV - PREMIUM MOD MENU");
+        title.setTextColor(android.graphics.Color.parseColor("#FFD700"));
+        title.setTextSize(20);
         title.setGravity(android.view.Gravity.CENTER);
+        title.setPadding(0, 0, 0, 50);
         layout.addView(title);
 
         Button btnRequest = new Button(this);
@@ -194,11 +278,12 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(btnRequest);
 
         Button btnStart = new Button(this);
-        btnStart.setText("Bắt đầu Mod");
+        btnStart.setText("OPEN MENU PANEL FF OBAW");
         btnStart.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this)) {
                 startService(new Intent(MainActivity.this, MenuService.class));
                 Toast.makeText(this, "Đã bật Menu!", Toast.LENGTH_SHORT).show();
+                finish(); // Đóng app chính sau khi mở menu
             } else {
                 askPermission();
                 Toast.makeText(this, "Vui lòng cấp quyền trước!", Toast.LENGTH_SHORT).show();
@@ -221,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 }`
   },
   {
-    name: 'MenuService.java',
+    name: 'app/src/main/java/com/avudev/ffmod/MenuService.java',
     language: 'java',
     content: `package com.avudev.ffmod;
 
@@ -237,9 +322,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -248,6 +330,8 @@ public class MenuService extends Service {
     private WindowManager mWindowManager;
     private View mFloatingView;
     private boolean isMenuOpen = false;
+    private int clickCount = 0;
+    private long lastClickTime = 0;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -280,8 +364,28 @@ public class MenuService extends Service {
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManager.addView(mFloatingView, params);
 
-        final LinearLayout menuContainer = mFloatingView.findViewById(R.id.menu_container);
-        final ImageView iconCloseOpen = mFloatingView.findViewById(R.id.icon_close_open);
+        final View menuContainer = mFloatingView.findViewById(R.id.menu_container);
+        final View iconCloseOpen = mFloatingView.findViewById(R.id.icon_close_open);
+        final View menuHeader = mFloatingView.findViewById(R.id.menu_header);
+
+        if (menuHeader != null) {
+            menuHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime - lastClickTime > 1000) {
+                        clickCount = 0;
+                    }
+                    clickCount++;
+                    lastClickTime = currentTime;
+
+                    if (clickCount >= 5) {
+                        Toast.makeText(MenuService.this, "Đã tắt Menu hoàn toàn!", Toast.LENGTH_SHORT).show();
+                        stopSelf();
+                    }
+                }
+            });
+        }
 
         // Xử lý kéo thả
         iconCloseOpen.setOnTouchListener(new View.OnTouchListener() {
@@ -329,8 +433,9 @@ public class MenuService extends Service {
     private void setupSwitches() {
         int[] switchIds = {
             R.id.sw_regedit2, R.id.sw_regedit4, R.id.sw_nhetam,
+            R.id.sw_aimdrag, R.id.sw_fakeaim,
             R.id.sw_fixrung, R.id.sw_fixlag, R.id.sw_buffman,
-            R.id.sw_antiban, R.id.sw_aimdrag, R.id.sw_fakeaim, R.id.sw_dns
+            R.id.sw_antiban, R.id.sw_dns
         };
 
         for (int id : switchIds) {
@@ -349,9 +454,9 @@ public class MenuService extends Service {
         Button btnTele = mFloatingView.findViewById(R.id.btn_tele);
         Button btnSp = mFloatingView.findViewById(R.id.btn_sp);
 
-        btnYt.setOnClickListener(v -> openLink("https://youtube.com"));
-        btnTele.setOnClickListener(v -> openLink("https://t.me"));
-        btnSp.setOnClickListener(v -> openLink("https://facebook.com"));
+        if(btnYt != null) btnYt.setOnClickListener(v -> openLink("https://youtube.com"));
+        if(btnTele != null) btnTele.setOnClickListener(v -> openLink("https://t.me"));
+        if(btnSp != null) btnSp.setOnClickListener(v -> openLink("https://facebook.com"));
     }
 
     private void openLink(String url) {
@@ -383,22 +488,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    
     - name: set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.4'
 
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: gradle assembleDebug
 
     - name: Upload APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk`
